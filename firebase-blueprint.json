@@ -1,0 +1,87 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A representation of a buyer or producer in the GEAX exchange.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "company": { "type": "string" },
+        "role": { "type": "string", "enum": ["buyer", "producer", "trader"] },
+        "region": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "paymentGateways": {
+          "type": "object",
+          "properties": {
+            "paypal": { "type": "boolean" },
+            "stripe": { "type": "boolean" },
+            "pesapal": { "type": "boolean" },
+            "escrow": { "type": "boolean" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "Contract": {
+      "title": "Contract",
+      "description": "A high-value energy allocation contract.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "value": { "type": "string" },
+        "capacity": { "type": "string" },
+        "duration": { "type": "string" },
+        "buyerId": { "type": "string" },
+        "buyerName": { "type": "string" },
+        "producerId": { "type": "string" },
+        "producerName": { "type": "string" },
+        "status": { "type": "string" },
+        "type": { "type": "string" },
+        "highlights": { "type": "array", "items": { "type": "string" } },
+        "terms": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "value", "buyerId", "producerId", "status"]
+    },
+    "InvestorInquiry": {
+      "title": "InvestorInquiry",
+      "description": "A secure contact entry from an institutional investor.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "company": { "type": "string" },
+        "budget": { "type": "string" },
+        "interest": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "email", "company", "budget", "interest"]
+    }
+  },
+  "firestore": {
+    "users": {
+        "schema": "User",
+        "description": "Collection of exchange participants."
+    },
+    "contracts": {
+        "schema": "Contract",
+        "description": "Collection of energy allocation agreements."
+    },
+    "sample_contracts": {
+        "schema": "Contract",
+        "description": "Collection of public sample energy contracts for showcase."
+    },
+    "investor_inquiries": {
+        "schema": "InvestorInquiry",
+        "description": "Collection of secure submissions from institutional investors."
+    }
+  }
+}
